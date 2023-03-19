@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS user_rate (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	account_id VARCHAR(50) NOT NULL UNIQUE,
+	allowed_requests INT(11) NOT NULL DEFAULT 0,
+	time_interval INT(11) NOT NULL DEFAULT 0,
+	CONSTRAINT user_rate_constr PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS ip_rate (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	account_ip VARCHAR(15) NOT NULL UNIQUE,
+	allowed_requests INT(11) NOT NULL DEFAULT 0,
+	time_interval INT(11) NOT NULL DEFAULT 0,
+	CONSTRAINT ip_rate_constr PRIMARY KEY (id)
+);

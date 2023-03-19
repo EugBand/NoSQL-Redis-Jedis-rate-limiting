@@ -11,9 +11,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.epam.nosqlrun.ratelimiter.model.User;
+import com.epam.nosqlrun.ratelimiter.model.TenantById;
 import com.epam.nosqlrun.ratelimiter.exception.UserNotFoundException;
-import com.epam.nosqlrun.ratelimiter.repository.UserRepository;
+import com.epam.nosqlrun.ratelimiter.model.TenantByIp;
+import com.epam.nosqlrun.ratelimiter.repository.TenantByIdRepository;
+import com.epam.nosqlrun.ratelimiter.repository.TenantByIpRepository;
 
 @Service
 public class UserService {
@@ -21,31 +23,34 @@ public class UserService {
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
-	UserRepository userRepository;
-	
-//	@Cacheable(value="userList", key="#user")
-//	public User getUser(String  user) {
-//		Optional<User> userOp = userRepository.findById(Integer.parseInt(user));
-//		if(userOp.isPresent()) {
-//			return userOp.get();
-//		} else {
-//			throw new UserNotFoundException("user not found");
-//		}
-//	}
+	TenantByIdRepository tenantByIdRepository;
 
-	@Cacheable(value="userList", key="#user")
-	public User getUser(String  user) {
-		Optional<User> userOp = userRepository.findByName(user);
+	@Autowired
+	TenantByIpRepository tenantByIpRepository;
+
+	@Cacheable(value="userList", key="#tenantId")
+	public TenantById getTenantById(String  tenantId) {
+		Optional<TenantById> userOp = tenantByIdRepository.findByAccountId(tenantId);
 		if(userOp.isPresent()) {
 			return userOp.get();
 		} else {
-			throw new UserNotFoundException(String.format("User with name %s not found", user));
+			throw new UserNotFoundException(String.format("TenantById with name %s not found", tenantId));
+		}
+	}
+
+	@Cacheable(value="userList", key="#tenantIp")
+	public TenantByIp getTenantByIp(String  tenantIp) {
+		Optional<TenantByIp> userOp = tenantByIpRepository.findByAccountIp(tenantIp);
+		if(userOp.isPresent()) {
+			return userOp.get();
+		} else {
+			throw new UserNotFoundException(String.format("TenantById with name %s not found", tenantIp));
 		}
 	}
 	
 	@CacheEvict(value="userList", allEntries = true)
 	@Scheduled(fixedDelayString = "${caching.spring.userListTTL}", initialDelay = 50000)
 	public void deleteUserList() {
-		LOG.info("Evict User List");
+		LOG.info("Evict TenantById List");
 	}
 }

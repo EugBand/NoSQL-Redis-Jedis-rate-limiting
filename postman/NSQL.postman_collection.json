@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "7c472946-0c69-4168-b7b0-b464b62141dc",
+		"name": "NSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14781276"
+	},
+	"item": [
+		{
+			"name": "NotSecureRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/v2/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v2",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SecureRequestForUser1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Tenant",
+						"value": "USER1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9090/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SecureRequestForUser2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Tenant",
+						"value": "USER2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9090/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

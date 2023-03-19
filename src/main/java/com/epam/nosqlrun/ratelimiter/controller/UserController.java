@@ -11,11 +11,11 @@ public class UserController {
 
 	@GetMapping("/v1/user")
 	public String getUser() {
-		return "Hello Secure User";
+		return "Hello Secure user";
 	}
 	
 	@GetMapping("/v2/user")
 	public String getUserNotsecure() {
-		return "Hello Not Secure User";
+		return "Hello Not Secure user";
 	}
 }

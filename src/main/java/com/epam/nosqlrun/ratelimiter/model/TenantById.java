@@ -14,17 +14,21 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="user_rate")
-public class User implements Serializable{
+public class TenantById implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	
-	private String name;
 
-	@Column(name = "user_limit")
-	private int userLimit;
+	@Column(name = "account_id")
+	private String accountId;
+
+	@Column(name = "allowed_requests")
+	private int allowedRequests;
+
+	@Column(name = "time_interval")
+	private int timeInterval;
 	
 }
